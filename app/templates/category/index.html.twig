@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.category_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.category_list'|trans }}</h1>
+
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="row text-center">
+            <div class="col-md-6">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+            <div class="col-md-6">
+                <a href="{{ url('task_index') }}" title="{{ 'action.task_list'|trans }}" class="btn btn-secondary">
+                    {{ 'action.task_list'|trans }}
+                </a>
+            </div>
+        </div>
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'category.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'category.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'category.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'category.updatedAt') }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in pagination.items %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.title }}</td>
+                    <td>{{ category.createdAt|format_date('long') }}</td>
+                    <td>{{ category.updatedAt|format_date('long') }}</td>
+                    <td>
+                        {% if is_granted('VIEW_CATEGORY', category) %}
+                            <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action.show'|trans }}" class="btn btn-primary btn-sm">
+                                {{ 'action.show'|trans }}
+                            </a>
+                        {% endif %}
+                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action.edit'|trans }}" class="btn btn-primary btn-sm">
+                                {{ 'action.edit'|trans }}
+                            </a>
+                        {% if is_granted('DELETE_CATEGORY', category) %}
+                            <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-primary btn-sm">
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('CREATE_CATEGORY', category) %}
+                            <a class="btn btn-primary btn-sm" href="{{ url('category_create', {id: category.id}) }}" title="{{ 'action.create'|trans }}">
+                                {{ 'action.create'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('VIEW_CATEGORY', category) %}
+                            <a href="{{ url('category_show_tasks', {id: category.id}) }}" title="{{ 'action.show_tasks'|trans }}" class="btn btn-primary btn-sm">
+                                {{ 'action.show_tasks'|trans }}
+                            </a>
+                        {% endif %}
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
