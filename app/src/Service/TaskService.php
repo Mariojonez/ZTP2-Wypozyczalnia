@@ -1,13 +1,15 @@
 <?php
-
 /**
  * Task service.
  */
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Entity\Task;
 use App\Repository\TaskRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -42,19 +44,14 @@ class TaskService implements TaskServiceInterface
      *
      * @param int $page Page number
      *
-     * @return PaginationInterface Paginated list
+     * @return PaginationInterface<string, mixed> Paginated list
      */
     public function getPaginatedList(int $page): PaginationInterface
     {
         return $this->paginator->paginate(
             $this->taskRepository->queryAll(),
             $page,
-            self::PAGINATOR_ITEMS_PER_PAGE,
-            [
-                'sortFieldAllowList' => ['task.id', 'task.createdAt', 'task.updatedAt', 'task.title'],
-                'defaultSortFieldName' => 'task.updatedAt',
-                'defaultSortDirection' => 'desc',
-            ]
+            self::PAGINATOR_ITEMS_PER_PAGE
         );
     }
 
@@ -62,6 +59,9 @@ class TaskService implements TaskServiceInterface
      * Save entity.
      *
      * @param Task $task Task entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Task $task): void
     {
@@ -72,9 +72,24 @@ class TaskService implements TaskServiceInterface
      * Delete entity.
      *
      * @param Task $task Task entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Task $task): void
     {
         $this->taskRepository->delete($task);
+    }
+
+    /**
+     * Get task by category.
+     *
+     * @param Category $category Category
+     *
+     * @return array Array of tasks
+     */
+    public function getTasksByCategory(Category $category): array
+    {
+        return $this->taskRepository->findBy(['category' => $category]);
     }
 }

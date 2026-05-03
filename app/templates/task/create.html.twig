@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ 'title.task_create'|trans }}
+{% endblock %}
+
+{% block body %}
+{% include 'default/_form.html.twig' with {
+page_title: 'title.task_create'|trans,
+form: form,
+submit_label: 'action.save'|trans,
+back_to_list_path: 'task_index',
+} %}
+{{ form_end(form) }}
+{% endblock %}

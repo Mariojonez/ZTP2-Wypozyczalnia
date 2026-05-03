@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Category entity.
  */
@@ -8,8 +7,8 @@ namespace App\Entity;
 
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\Table(name: 'categories')]
-#[ORM\UniqueConstraint(name: 'uq_categories_title', columns: ['title'])]
 #[UniqueEntity(fields: ['title'])]
 class Category
 {
@@ -28,15 +26,6 @@ class Category
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
-
-    /**
-     * Title.
-     */
-    #[ORM\Column(type: 'string', length: 64)]
-    #[Assert\Type('string')]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 64)]
-    private ?string $title = null;
 
     /**
      * Created at.
@@ -55,13 +44,13 @@ class Category
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
-     * Slug.
+     * Title.
      */
-    #[ORM\Column(type: 'string', length: 64)]
+    #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
+    #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 64)]
-    #[Gedmo\Slug(fields: ['title'])]
-    private ?string $slug = null;
+    private ?string $title = null;
 
     /**
      * Getter for Id.
@@ -71,26 +60,6 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * Getter for title.
-     *
-     * @return string|null Title
-     */
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    /**
-     * Setter for title.
-     *
-     * @param string|null $title Title
-     */
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
     }
 
     /**
@@ -133,15 +102,32 @@ class Category
         $this->updatedAt = $updatedAt;
     }
 
-    public function getSlug(): ?string
+    /**
+     * Getter for title.
+     *
+     * @return string|null Title
+     */
+    public function getTitle(): ?string
     {
-        return $this->slug;
+        return $this->title;
     }
 
-    public function setSlug(string $slug): static
+    /**
+     * Setter for title.
+     *
+     * @param string|null $title Title
+     */
+    public function setTitle(?string $title): void
     {
-        $this->slug = $slug;
-
-        return $this;
+        $this->title = $title;
     }
+
+    /**
+     * Slug.
+     */
+    #[ORM\Column(type: 'string', length: 64)]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
+    #[Gedmo\Slug(fields: ['title'])]
+    private ?string $slug = null;
 }

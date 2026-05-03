@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Task repository.
  */
@@ -8,12 +7,22 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Task;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class TaskRepository.
+ *
+ * @method Task|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Task|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Task[]    findAll()
+ * @method Task[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  *
  * @extends ServiceEntityRepository<Task>
  */
@@ -36,12 +45,13 @@ class TaskRepository extends ServiceEntityRepository
      */
     public function queryAll(): QueryBuilder
     {
-        return $this->createQueryBuilder('task')
+        return $this->getOrCreateQueryBuilder()
             ->select(
                 'partial task.{id, createdAt, updatedAt, title}',
                 'partial category.{id, title}'
             )
-            ->join('task.category', 'category');
+            ->join('task.category', 'category')
+            ->orderBy('task.updatedAt', 'DESC');
     }
 
     /**
@@ -50,10 +60,13 @@ class TaskRepository extends ServiceEntityRepository
      * @param Category $category Category
      *
      * @return int Number of tasks in category
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function countByCategory(Category $category): int
     {
-        $qb = $this->createQueryBuilder('task');
+        $qb = $this->getOrCreateQueryBuilder();
 
         return $qb->select($qb->expr()->countDistinct('task.id'))
             ->where('task.category = :category')
@@ -66,21 +79,56 @@ class TaskRepository extends ServiceEntityRepository
      * Save entity.
      *
      * @param Task $task Task entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Task $task): void
     {
-        $this->getEntityManager()->persist($task);
-        $this->getEntityManager()->flush();
+        $this->_em->persist($task);
+        $this->_em->flush();
     }
 
     /**
      * Delete entity.
      *
      * @param Task $task Task entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Task $task): void
     {
-        $this->getEntityManager()->remove($task);
-        $this->getEntityManager()->flush();
+        $this->_em->remove($task);
+        $this->_em->flush();
+    }
+
+    /**
+     * Query tasks by author.
+     *
+     * @param User $user User entity
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryByAuthor(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('task.author = :author')
+            ->setParameter('author', $user);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('task');
     }
 }

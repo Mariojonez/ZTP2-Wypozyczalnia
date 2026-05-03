@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Task entity.
  */
@@ -9,7 +8,6 @@ namespace App\Entity;
 use App\Repository\TaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,15 +28,6 @@ class Task
     private ?int $id = null;
 
     /**
-     * Title.
-     */
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\Type('string')]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 255)]
-    private ?string $title = null;
-
-    /**
      * Created at.
      */
     #[ORM\Column(type: 'datetime_immutable')]
@@ -55,31 +44,32 @@ class Task
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
-     * Comment.
+     * Title.
      */
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
-    #[Assert\Length(min: 3, max: 65535)]
-    private ?string $comment = null;
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
+    private ?string $title = null;
 
     /**
      * Category.
      */
     #[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EXTRA_LAZY')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank]
     #[Assert\Type(Category::class)]
+    #[Assert\NotBlank]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
     /**
      * Tags.
      *
-     * @var Collection<int, Tag>
+     * @var ArrayCollection<int, Tag>
      */
+    #[Assert\Valid]
     #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'tasks_tags')]
-    #[Assert\Valid]
-    private Collection $tags;
+    private $tags;
 
     /**
      * Author.
@@ -88,7 +78,13 @@ class Task
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Type(User::class)]
-    private ?User $author;
+    private ?User $author = null;
+
+    /**
+     * Author.
+     */
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $status = 'available';
 
     /**
      * Constructor.
@@ -109,26 +105,6 @@ class Task
     }
 
     /**
-     * Getter for title.
-     *
-     * @return string|null Title
-     */
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    /**
-     * Setter for title.
-     *
-     * @param string|null $title Title
-     */
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
      * Getter for created at.
      *
      * @return \DateTimeImmutable|null Created at
@@ -141,9 +117,9 @@ class Task
     /**
      * Setter for created at.
      *
-     * @param \DateTimeImmutable|null $createdAt Created at
+     * @param \DateTimeImmutable $createdAt Created at
      */
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -161,31 +137,31 @@ class Task
     /**
      * Setter for updated at.
      *
-     * @param \DateTimeImmutable|null $updatedAt Updated at
+     * @param \DateTimeImmutable $updatedAt Updated at
      */
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
 
     /**
-     * Getter for comment.
+     * Getter for title.
      *
-     * @return string|null Comment
+     * @return string|null Title
      */
-    public function getComment(): ?string
+    public function getTitle(): ?string
     {
-        return $this->comment;
+        return $this->title;
     }
 
     /**
-     * Setter for comment.
+     * Setter for title.
      *
-     * @param string|null $comment Comment
+     * @param string $title Title
      */
-    public function setComment(?string $comment): void
+    public function setTitle(string $title): void
     {
-        $this->comment = $comment;
+        $this->title = $title;
     }
 
     /**
@@ -226,12 +202,12 @@ class Task
     public function addTag(Tag $tag): void
     {
         if (!$this->tags->contains($tag)) {
-            $this->tags->add($tag);
+            $this->tags[] = $tag;
         }
     }
 
     /**
-     * Remove Tag.
+     * Remove tag.
      *
      * @param Tag $tag Tag entity
      */
@@ -240,11 +216,23 @@ class Task
         $this->tags->removeElement($tag);
     }
 
+    /**
+     * Get the author of this entity.
+     *
+     * @return User|null the author of this entity, or null if not set
+     */
     public function getAuthor(): ?User
     {
         return $this->author;
     }
 
+    /**
+     * Set the author of this entity.
+     *
+     * @param User|null $author the author to set for this entity
+     *
+     * @return static
+     */
     public function setAuthor(?User $author): static
     {
         $this->author = $author;

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * User entity.
  */
@@ -18,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'email_idx', columns: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -31,8 +30,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Email.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
@@ -42,15 +39,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Roles.
      *
-     * @var list<int, string>
+     * @var array<int, string>
      */
     #[ORM\Column(type: 'json')]
+    #[Assert\NotBlank]
     private array $roles = [];
 
     /**
-     * Hashed password.
-     *
-     * @var string|null
+     * Password.
      */
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
@@ -89,9 +85,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * A visual identifier that represents this user.
      *
-     * @see UserInterface
-     *
      * @return string User identifier
+     *
+     * @see UserInterface
      */
     public function getUserIdentifier(): string
     {
@@ -99,11 +95,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return string Username
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
      * Getter for roles.
      *
-     * @see UserInterface
+     * @return array<int, string> Roles
      *
-     * @return list<string>
+     * @see UserInterface
      */
     public function getRoles(): array
     {
@@ -117,7 +121,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Setter for roles.
      *
-     * @param list<int, string> $roles Roles
+     * @param array<int, string> $roles Roles
      */
     public function setRoles(array $roles): void
     {
@@ -127,9 +131,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Getter for password.
      *
-     * @see PasswordAuthenticatedUserInterface
-     *
      * @return string|null Password
+     *
+     * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): ?string
     {
@@ -155,5 +159,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Upgrade the user's password.
+     *
+     * @param string $newHashedPassword The new hashed password
+     */
+    public function upgradePassword(string $newHashedPassword): void
+    {
+        $this->setPassword($newHashedPassword);
     }
 }
