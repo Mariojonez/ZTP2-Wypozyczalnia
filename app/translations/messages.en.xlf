@@ -38,6 +38,39 @@
         <source>title.record_view</source>
         <target>Record view #%id%</target>
       </trans-unit>
+
+      <trans-unit id="title.task_list">
+        <source>title.task_list</source>
+        <target>Task list</target>
+      </trans-unit>
+      <trans-unit id="action.login">
+        <source>action.login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="action.category_list">
+        <source>action.category_list</source>
+        <target>Category list</target>
+      </trans-unit>
+      <trans-unit id="action.reservation_new">
+        <source>action.reservation_new</source>
+        <target>New reservation</target>
+      </trans-unit>
+      <trans-unit id="action.reservation_list">
+        <source>action.reservation_list</source>
+        <target>Reservation list</target>
+      </trans-unit>
+      <trans-unit id="label.created_at">
+        <source>label.created_at</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="label.updated_at">
+        <source>label.updated_at</source>
+        <target>Updated at</target>
+      </trans-unit>
+      <trans-unit id="label_category">
+        <source>label_category</source>
+        <target>Category</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

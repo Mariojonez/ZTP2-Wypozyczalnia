@@ -39,14 +39,14 @@
                     <td>{{ category.createdAt|format_date('long') }}</td>
                     <td>{{ category.updatedAt|format_date('long') }}</td>
                     <td>
-                        {% if is_granted('VIEW_CATEGORY', category) %}
-                            <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action.show'|trans }}" class="btn btn-primary btn-sm">
-                                {{ 'action.show'|trans }}
-                            </a>
-                        {% endif %}
+                        <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action.show'|trans }}" class="btn btn-primary btn-sm">
+                            {{ 'action.show'|trans }}
+                        </a>
+                        {% if is_granted('EDIT_CATEGORY', category) %}
                             <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action.edit'|trans }}" class="btn btn-primary btn-sm">
                                 {{ 'action.edit'|trans }}
                             </a>
+                        {% endif %}
                         {% if is_granted('DELETE_CATEGORY', category) %}
                             <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-primary btn-sm">
                                 {{ 'action.delete'|trans }}
