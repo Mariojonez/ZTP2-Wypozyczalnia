@@ -44,29 +44,20 @@ class CategoryRepository extends ServiceEntityRepository
             ->orderBy('category.updatedAt', 'DESC');
     }
 
-    /**
-     * Save entity.
-     *
-     * @param Category $category Category entity
-     */
     public function save(Category $category): void
     {
-        $this->_em->persist($category);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($category);
+        $this->getEntityManager()->flush();
     }
 
     /**
-     * Delete entity.
-     *
-     * @param Category $category Category entity
-     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
     public function delete(Category $category): void
     {
-        $this->_em->remove($category);
-        $this->_em->flush();
+        $this->getEntityManager()->remove($category);
+        $this->getEntityManager()->flush();
     }
 
     /**

@@ -49,7 +49,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function save(User $user): void
     {
-        $this->_em->persist($user);
-        $this->_em->flush();
+        // changed from $this->_em to getEntityManager()
+        // because $_em is null in current Doctrine/Symfony versions
+        $this->getEntityManager()->persist($user);
+
+        // changed from $this->_em to getEntityManager()
+        $this->getEntityManager()->flush();
     }
 }
