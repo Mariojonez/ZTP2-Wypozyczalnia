@@ -35,7 +35,7 @@ class TagsDataTransformer implements DataTransformerInterface
      */
     public function transform($value): string
     {
-        if ($value->isEmpty()) {
+        if (null === $value || $value->isEmpty()) {
             return '';
         }
 

@@ -70,8 +70,6 @@ class TaskFixtures extends AbstractBaseFixtures implements DependentFixtureInter
     }
 
     /**
-     * This method must return an array of fixtures classes
-     * on which the implementing class depends on.
      *
      * @return string[] of dependencies
      *

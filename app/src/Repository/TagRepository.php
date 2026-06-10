@@ -30,29 +30,20 @@ class TagRepository extends ServiceEntityRepository
 
     /**
      * Save entity.
-     *
-     * @param Tag $task Task entity
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
-    public function save(Tag $task): void
+    public function save(Tag $tag): void
     {
-        $this->_em->persist($task);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($tag);
+        $this->getEntityManager()->flush();
     }
 
     /**
      * Delete entity.
      *
-     * @param Tag $task Task entity
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
-    public function delete(Tag $task): void
+    public function delete(Tag $tag): void
     {
-        $this->_em->remove($task);
-        $this->_em->flush();
+        $this->getEntityManager()->remove($tag);
+        $this->getEntityManager()->flush();
     }
 }

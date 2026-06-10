@@ -16,6 +16,8 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Entity\Task;
+use App\Repository\TaskRepository;
 
 /**
  * Class CategoryControllerTest.
@@ -99,7 +101,7 @@ class CategoryControllerTest extends WebTestCase
         // when
         $this->client->request(
             'GET',
-            self::ROUTE.'/create'
+            self::ROUTE . '/create'
         );
 
         // then
@@ -124,7 +126,7 @@ class CategoryControllerTest extends WebTestCase
         // when
         $this->client->request(
             'GET',
-            self::ROUTE.'/create'
+            self::ROUTE . '/create'
         );
 
         // then
@@ -151,7 +153,7 @@ class CategoryControllerTest extends WebTestCase
         // when
         $this->client->request(
             'GET',
-            self::ROUTE.'/'.$category->getId()
+            self::ROUTE . '/' . $category->getId()
         );
 
         // then
@@ -294,7 +296,7 @@ class CategoryControllerTest extends WebTestCase
         $user = new User();
 
         $user->setEmail(
-            uniqid('', true).'@test.com'
+            uniqid('', true) . '@test.com'
         );
 
         $user->setRoles($roles);
@@ -312,5 +314,37 @@ class CategoryControllerTest extends WebTestCase
         $repository->save($user);
 
         return $user;
+    }
+
+    /**
+     * Admin can create category.
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function testCreateCategory(): void
+    {
+        // given
+        $admin = $this->createUser([
+            UserRole::ROLE_USER->value,
+            UserRole::ROLE_ADMIN->value,
+        ]);
+
+        $this->client->loginUser($admin);
+
+        $crawler = $this->client->request(
+            'GET',
+            self::ROUTE . '/create'
+        );
+
+        // when
+        $form = $crawler->filter('form')->form([
+            'category[title]' => 'Created category',
+        ]);
+
+        $this->client->submit($form);
+
+        // then
+        self::assertResponseRedirects(self::ROUTE);
     }
 }

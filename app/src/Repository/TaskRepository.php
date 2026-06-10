@@ -78,29 +78,21 @@ class TaskRepository extends ServiceEntityRepository
     /**
      * Save entity.
      *
-     * @param Task $task Task entity
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function save(Task $task): void
     {
-        $this->_em->persist($task);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($task);
+        $this->getEntityManager()->flush();
     }
 
     /**
      * Delete entity.
      *
-     * @param Task $task Task entity
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function delete(Task $task): void
     {
-        $this->_em->remove($task);
-        $this->_em->flush();
+        $this->getEntityManager()->remove($task);
+        $this->getEntityManager()->flush();
     }
 
     /**
