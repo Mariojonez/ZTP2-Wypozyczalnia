@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Category repository.
  */
@@ -44,6 +45,11 @@ class CategoryRepository extends ServiceEntityRepository
             ->orderBy('category.updatedAt', 'DESC');
     }
 
+    /**
+     * Saves category entity.
+     *
+     * @param Category $category Category entity
+     */
     public function save(Category $category): void
     {
         $this->getEntityManager()->persist($category);
@@ -51,6 +57,10 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
+     * Deletes category entity.
+     *
+     * @param Category $category Category entity
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */

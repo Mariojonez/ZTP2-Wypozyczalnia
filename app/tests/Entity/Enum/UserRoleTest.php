@@ -1,4 +1,5 @@
 <?php
+
 /**
  * UserRole enum test.
  */

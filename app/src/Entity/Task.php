@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Task entity.
  */
@@ -229,14 +230,10 @@ class Task
     /**
      * Set the author of this entity.
      *
-     * @param User|null $author the author to set for this entity
-     *
-     * @return static
+     * @param User|null $author The author to set for this entity
      */
-    public function setAuthor(?User $author): static
+    public function setAuthor(?User $author): void
     {
         $this->author = $author;
-
-        return $this;
     }
 }

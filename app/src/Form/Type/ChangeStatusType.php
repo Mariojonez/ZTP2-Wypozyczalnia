@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Change status type.
  */

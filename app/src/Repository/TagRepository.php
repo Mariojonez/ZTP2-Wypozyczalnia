@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tag repository.
  */
@@ -7,8 +8,6 @@ namespace App\Repository;
 
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -30,6 +29,8 @@ class TagRepository extends ServiceEntityRepository
 
     /**
      * Save entity.
+     *
+     * @param Tag $tag Tag entity
      */
     public function save(Tag $tag): void
     {
@@ -40,6 +41,7 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Delete entity.
      *
+     * @param Tag $tag Tag entity
      */
     public function delete(Tag $tag): void
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Task voter test.
  */
@@ -26,7 +27,7 @@ class TaskVoterTest extends TestCase
     private TaskVoter $voter;
 
     /**
-     * Set up.
+     * Set up test environment.
      */
     protected function setUp(): void
     {
@@ -74,7 +75,6 @@ class TaskVoterTest extends TestCase
         self::assertFalse($result);
     }
 
-
     /**
      * Any logged-in user can view a task.
      */
@@ -90,7 +90,7 @@ class TaskVoterTest extends TestCase
     }
 
     /**
-     * Admin can also view a task.
+     * Admin can view a task.
      */
     public function testCanViewAllowsAdmin(): void
     {
@@ -102,7 +102,6 @@ class TaskVoterTest extends TestCase
 
         self::assertTrue($result);
     }
-
 
     /**
      * Admin can delete a task.
@@ -161,7 +160,7 @@ class TaskVoterTest extends TestCase
     }
 
     /**
-     * Admin can change the status of a reservation.
+     * Admin can change reservation status.
      */
     public function testCanChangeStatusAllowsAdmin(): void
     {
@@ -175,7 +174,7 @@ class TaskVoterTest extends TestCase
     }
 
     /**
-     * Regular user cannot change the status of a reservation.
+     * Regular user cannot change reservation status.
      */
     public function testCanChangeStatusDeniesRegularUser(): void
     {
@@ -217,7 +216,7 @@ class TaskVoterTest extends TestCase
     }
 
     /**
-     * Admin can view the full list.
+     * Admin can list resources.
      */
     public function testCanListAllowsAdmin(): void
     {
@@ -231,7 +230,7 @@ class TaskVoterTest extends TestCase
     }
 
     /**
-     * Regular user cannot view the full list.
+     * Regular user cannot list resources.
      */
     public function testCanListDeniesRegularUser(): void
     {
@@ -244,9 +243,8 @@ class TaskVoterTest extends TestCase
         self::assertFalse($result);
     }
 
-
     /**
-     * Calls the voter and returns the boolean result.
+     * Calls the voter and returns boolean result.
      *
      * @param string         $attribute Permission string
      * @param mixed          $subject   Subject entity
@@ -258,20 +256,20 @@ class TaskVoterTest extends TestCase
     {
         $result = $this->voter->vote($token, $subject, [$attribute]);
 
-        return $result === 1;
+        return 1 === $result;
     }
 
     /**
-     * Creates a User entity with the given roles.
+     * Creates a user with roles.
      *
-     * @param array $roles List of role strings
+     * @param array $roles Roles list
      *
-     * @return User
+     * @return User User entity
      */
     private function createUser(array $roles): User
     {
         $user = new User();
-        $user->setEmail(uniqid('', true) . '@test.com');
+        $user->setEmail(uniqid('', true).'@test.com');
         $user->setRoles($roles);
         $user->setPassword('hashed-password');
 
@@ -279,11 +277,11 @@ class TaskVoterTest extends TestCase
     }
 
     /**
-     * Creates an authenticated token for the given user.
+     * Creates authenticated token.
      *
-     * @param User $user
+     * @param User $user User entity
      *
-     * @return TokenInterface
+     * @return TokenInterface Authentication token
      */
     private function createToken(User $user): TokenInterface
     {
@@ -291,9 +289,9 @@ class TaskVoterTest extends TestCase
     }
 
     /**
-     * Creates an anonymous (unauthenticated) token.
+     * Creates anonymous token.
      *
-     * @return TokenInterface
+     * @return TokenInterface Anonymous token
      */
     private function createAnonymousToken(): TokenInterface
     {
@@ -302,5 +300,4 @@ class TaskVoterTest extends TestCase
 
         return $stub;
     }
-
 }

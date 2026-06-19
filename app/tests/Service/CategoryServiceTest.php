@@ -1,6 +1,7 @@
 <?php
+
 /**
- * CategoryService Test.
+ * Category service test.
  */
 
 namespace App\Tests\Service;
@@ -12,14 +13,26 @@ use App\Service\CategoryService;
 use App\Service\CategoryServiceInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\OptimisticLockException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * Class CategoryServiceTest.
+ */
 class CategoryServiceTest extends KernelTestCase
 {
+    /**
+     * Entity manager.
+     */
     private ?EntityManagerInterface $entityManager = null;
+
+    /**
+     * Category service.
+     */
     private ?CategoryServiceInterface $categoryService = null;
 
+    /**
+     * Setup test environment.
+     */
     protected function setUp(): void
     {
         self::bootKernel();
@@ -30,6 +43,9 @@ class CategoryServiceTest extends KernelTestCase
         $this->categoryService = $container->get(CategoryService::class);
     }
 
+    /**
+     * Test saving category.
+     */
     public function testSave(): void
     {
         // given
@@ -45,6 +61,9 @@ class CategoryServiceTest extends KernelTestCase
         );
     }
 
+    /**
+     * Test deleting category.
+     */
     public function testDelete(): void
     {
         // given
@@ -69,12 +88,15 @@ class CategoryServiceTest extends KernelTestCase
         $this->assertNull($result);
     }
 
+    /**
+     * Test paginated list retrieval.
+     */
     public function testGetPaginatedList(): void
     {
         // given
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 3; ++$i) {
             $category = new Category();
-            $category->setTitle('Cat ' . $i);
+            $category->setTitle('Cat '.$i);
             $this->categoryService->save($category);
         }
 
@@ -85,6 +107,9 @@ class CategoryServiceTest extends KernelTestCase
         $this->assertEquals(3, $result->count());
     }
 
+    /**
+     * Test canBeDeleted returns true for empty category.
+     */
     public function testCanBeDeletedTrue(): void
     {
         // given
@@ -99,6 +124,9 @@ class CategoryServiceTest extends KernelTestCase
         $this->assertTrue($result);
     }
 
+    /**
+     * Test canBeDeleted returns false when category has tasks.
+     */
     public function testCanBeDeletedFalse(): void
     {
         // given
@@ -127,7 +155,9 @@ class CategoryServiceTest extends KernelTestCase
         $this->assertFalse($result);
     }
 
-
+    /**
+     * Test canBeDeleted handles repository exception.
+     */
     public function testCanBeDeletedException(): void
     {
         // given

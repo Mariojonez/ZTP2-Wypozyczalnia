@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * TaskType test.
+ */
+
 namespace App\Tests\Form\Type;
 
 use App\Entity\Category;
@@ -18,6 +22,9 @@ class TaskTypeTest extends KernelTestCase
     private FormFactoryInterface $formFactory;
     private TaskType $taskType;
 
+    /**
+     * Set up test environment.
+     */
     protected function setUp(): void
     {
         self::bootKernel();
@@ -33,6 +40,9 @@ class TaskTypeTest extends KernelTestCase
         $this->taskType = $container->get(TaskType::class);
     }
 
+    /**
+     * Test build form.
+     */
     public function testBuildForm(): void
     {
         $form = $this->formFactory->create(TaskType::class);
@@ -42,6 +52,9 @@ class TaskTypeTest extends KernelTestCase
         $this->assertTrue($form->has('tags'));
     }
 
+    /**
+     * Test title field configuration.
+     */
     public function testTitleFieldConfiguration(): void
     {
         $form = $this->formFactory->create(TaskType::class);
@@ -52,6 +65,9 @@ class TaskTypeTest extends KernelTestCase
         $this->assertEquals(255, $config->getOption('attr')['max_length']);
     }
 
+    /**
+     * Test category field configuration.
+     */
     public function testCategoryFieldConfiguration(): void
     {
         $form = $this->formFactory->create(TaskType::class);
@@ -63,6 +79,9 @@ class TaskTypeTest extends KernelTestCase
         $this->assertTrue($config->getOption('required'));
     }
 
+    /**
+     * Test tags field configuration.
+     */
     public function testTagsFieldConfiguration(): void
     {
         $form = $this->formFactory->create(TaskType::class);
@@ -73,6 +92,9 @@ class TaskTypeTest extends KernelTestCase
         $this->assertEquals(128, $config->getOption('attr')['max_length']);
     }
 
+    /**
+     * Test choice label callback.
+     */
     public function testChoiceLabelCallback(): void
     {
         $form = $this->formFactory->create(TaskType::class);
@@ -85,6 +107,9 @@ class TaskTypeTest extends KernelTestCase
         $this->assertEquals('My Category', $choiceLabel($category));
     }
 
+    /**
+     * Test configure options.
+     */
     public function testConfigureOptions(): void
     {
         $resolver = new OptionsResolver();
@@ -95,11 +120,17 @@ class TaskTypeTest extends KernelTestCase
         $this->assertEquals(Task::class, $options['data_class']);
     }
 
+    /**
+     * Test get block prefix.
+     */
     public function testGetBlockPrefix(): void
     {
         $this->assertEquals('task', $this->taskType->getBlockPrefix());
     }
 
+    /**
+     * Test form submission.
+     */
     public function testFormSubmission(): void
     {
         $task = new Task();

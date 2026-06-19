@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Task repository.
  */
@@ -11,8 +12,6 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -78,6 +77,7 @@ class TaskRepository extends ServiceEntityRepository
     /**
      * Save entity.
      *
+     * @param Task $task Task entity
      */
     public function save(Task $task): void
     {
@@ -88,6 +88,7 @@ class TaskRepository extends ServiceEntityRepository
     /**
      * Delete entity.
      *
+     * @param Task $task Task entity
      */
     public function delete(Task $task): void
     {

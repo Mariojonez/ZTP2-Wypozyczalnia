@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Task voter.
  */
@@ -21,70 +22,70 @@ class TaskVoter extends Voter
     /**
      * Edit permission.
      *
-     * @const string
+     * @var string
      */
     private const EDIT = 'EDIT';
 
     /**
      * View permission.
      *
-     * @const string
+     * @var string
      */
     private const VIEW = 'VIEW';
 
     /**
      * Delete permission.
      *
-     * @const string
+     * @var string
      */
     private const DELETE = 'DELETE';
 
     /**
      * Create permission.
      *
-     * @const string
+     * @var string
      */
     private const CREATE = 'CREATE';
 
     /**
      * Edit category permission.
      *
-     * @const string
+     * @var string
      */
     private const EDIT_CATEGORY = 'EDIT_CATEGORY';
 
     /**
      * Delete category permission.
      *
-     * @const string
+     * @var string
      */
     private const DELETE_CATEGORY = 'DELETE_CATEGORY';
 
     /**
      * View category permission.
      *
-     * @const string
+     * @var string
      */
     private const VIEW_CATEGORY = 'VIEW_CATEGORY';
 
     /**
      * Create category permission.
      *
-     * @const string
+     * @var string
      */
     private const CREATE_CATEGORY = 'CREATE_CATEGORY';
 
     /**
      * Change status permission.
      *
-     * @const string
+     * @var string
      */
     private const CHANGE_STATUS = 'CHANGE_STATUS';
 
     /**
      * View list permission.
      *
-     * @const string
+     * @var string
      */
     private const LIST = 'LIST';
 

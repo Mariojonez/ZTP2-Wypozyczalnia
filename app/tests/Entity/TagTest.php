@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tag entity test.
  */
@@ -71,10 +72,9 @@ class TagTest extends TestCase
         $slug = 'symfony';
 
         // when
-        $result = $tag->setSlug($slug);
+        $tag->setSlug($slug);
 
         // then
         self::assertSame($slug, $tag->getSlug());
-        self::assertSame($tag, $result);
     }
 }

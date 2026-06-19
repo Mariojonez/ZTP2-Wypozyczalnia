@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * TagsDataTransformer test.
+ *
+ * This file is part of the application test suite.
+ */
+
 namespace App\Tests\Form\DataTransformer;
 
 use App\Entity\Tag;
@@ -8,8 +14,14 @@ use App\Service\TagServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class TagsDataTransformerTest.
+ */
 class TagsDataTransformerTest extends TestCase
 {
+    /**
+     * Test transform returns empty string for empty collection.
+     */
     public function testTransformReturnsEmptyStringForEmptyCollection(): void
     {
         $transformer = new TagsDataTransformer(
@@ -23,6 +35,9 @@ class TagsDataTransformerTest extends TestCase
         $this->assertSame('', $result);
     }
 
+    /**
+     * Test transform returns comma-separated titles.
+     */
     public function testTransformReturnsCommaSeparatedTitles(): void
     {
         $transformer = new TagsDataTransformer(
@@ -42,6 +57,9 @@ class TagsDataTransformerTest extends TestCase
         $this->assertSame('PHP, Symfony', $result);
     }
 
+    /**
+     * Test reverse transform returns empty array for empty string.
+     */
     public function testReverseTransformReturnsEmptyArrayForEmptyString(): void
     {
         $tagService = $this->createMock(TagServiceInterface::class);
@@ -57,6 +75,9 @@ class TagsDataTransformerTest extends TestCase
         $this->assertSame([], $result);
     }
 
+    /**
+     * Test reverse transform returns existing tags.
+     */
     public function testReverseTransformReturnsExistingTags(): void
     {
         $tagService = $this->createMock(TagServiceInterface::class);
@@ -88,6 +109,9 @@ class TagsDataTransformerTest extends TestCase
         $this->assertSame($symfonyTag, $result[1]);
     }
 
+    /**
+     * Test reverse transform creates new tags.
+     */
     public function testReverseTransformCreatesNewTags(): void
     {
         $tagService = $this->createMock(TagServiceInterface::class);
@@ -115,6 +139,9 @@ class TagsDataTransformerTest extends TestCase
         $this->assertSame('Symfony', $result[1]->getTitle());
     }
 
+    /**
+     * Test reverse transform ignores empty tag titles.
+     */
     public function testReverseTransformIgnoresEmptyTagTitles(): void
     {
         $tagService = $this->createMock(TagServiceInterface::class);

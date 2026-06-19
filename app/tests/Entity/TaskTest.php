@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Task entity test.
  */
@@ -103,6 +104,7 @@ class TaskTest extends TestCase
         self::assertFalse($task->getTags()->contains($tag));
         self::assertCount(0, $task->getTags());
     }
+
     /**
      * Test setCategory() and getCategory().
      */
@@ -118,6 +120,7 @@ class TaskTest extends TestCase
         // then
         self::assertSame($category, $task->getCategory());
     }
+
     /**
      * Test setAuthor() and getAuthor().
      */
@@ -128,12 +131,12 @@ class TaskTest extends TestCase
         $author = new User();
 
         // when
-        $result = $task->setAuthor($author);
+        $task->setAuthor($author);
 
         // then
         self::assertSame($author, $task->getAuthor());
-        self::assertSame($task, $result);
     }
+
     /**
      * Test setting category to null.
      */
@@ -148,6 +151,7 @@ class TaskTest extends TestCase
         // then
         self::assertNull($task->getCategory());
     }
+
     /**
      * Test setting author to null.
      */

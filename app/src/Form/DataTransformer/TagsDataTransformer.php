@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tags data transformer.
  */
@@ -57,6 +58,10 @@ class TagsDataTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value): array
     {
+        if (null === $value || '' === $value) {
+            return [];
+        }
+
         $tagTitles = explode(',', $value);
 
         $tags = [];

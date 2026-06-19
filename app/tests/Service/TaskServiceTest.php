@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Task service test.
+ */
+
 namespace App\Tests\Service;
 
 use App\Entity\Category;
@@ -11,11 +15,24 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * Class TaskServiceTest.
+ */
 class TaskServiceTest extends KernelTestCase
 {
+    /**
+     * Entity manager.
+     */
     private ?EntityManagerInterface $entityManager = null;
+
+    /**
+     * Task service.
+     */
     private ?TaskServiceInterface $taskService = null;
 
+    /**
+     * Setup test environment.
+     */
     protected function setUp(): void
     {
         self::bootKernel();
@@ -26,6 +43,9 @@ class TaskServiceTest extends KernelTestCase
         $this->taskService = $container->get(TaskService::class);
     }
 
+    /**
+     * Test saving task.
+     */
     public function testSave(): void
     {
         // given
@@ -50,6 +70,9 @@ class TaskServiceTest extends KernelTestCase
         $this->assertNotNull($task->getId());
     }
 
+    /**
+     * Test deleting task.
+     */
     public function testDelete(): void
     {
         // given
@@ -87,6 +110,9 @@ class TaskServiceTest extends KernelTestCase
         $this->assertNull($result);
     }
 
+    /**
+     * Test getting tasks by category.
+     */
     public function testGetTasksByCategory(): void
     {
         // given
@@ -115,6 +141,9 @@ class TaskServiceTest extends KernelTestCase
         $this->assertSame('Task 1', $result[0]->getTitle());
     }
 
+    /**
+     * Test paginated task list.
+     */
     public function testGetPaginatedList(): void
     {
         // given
@@ -127,7 +156,7 @@ class TaskServiceTest extends KernelTestCase
         $user->setPassword('password');
         $this->entityManager->persist($user);
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 3; ++$i) {
             $task = new Task();
             $task->setTitle('Task '.$i);
             $task->setCategory($category);

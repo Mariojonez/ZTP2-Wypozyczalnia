@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Reservation entity test.
  */
@@ -114,11 +115,10 @@ class ReservationTest extends TestCase
         $comment = 'Test comment';
 
         // when
-        $result = $reservation->setComment($comment);
+        $reservation->setComment($comment);
 
         // then
         self::assertSame($comment, $reservation->getComment());
-        self::assertSame($reservation, $result);
     }
 
     /**
@@ -134,7 +134,6 @@ class ReservationTest extends TestCase
 
         // then
         self::assertNull($reservation->getComment());
-        self::assertSame($reservation, $result);
     }
 
     /**
@@ -147,10 +146,9 @@ class ReservationTest extends TestCase
         $status = 'approved';
 
         // when
-        $result = $reservation->setStatus($status);
+        $reservation->setStatus($status);
 
         // then
         self::assertSame($status, $reservation->getStatus());
-        self::assertSame($reservation, $result);
     }
 }

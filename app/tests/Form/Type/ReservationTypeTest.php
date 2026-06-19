@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * ReservationType test.
+ */
+
 namespace App\Tests\Form\Type;
 
 use App\Entity\Reservation;
@@ -18,6 +22,9 @@ class ReservationTypeTest extends KernelTestCase
     private FormFactoryInterface $formFactory;
     private ReservationType $type;
 
+    /**
+     * Set up test environment.
+     */
     protected function setUp(): void
     {
         self::bootKernel();
@@ -28,6 +35,9 @@ class ReservationTypeTest extends KernelTestCase
         $this->type = $container->get(ReservationType::class);
     }
 
+    /**
+     * Test build form has all fields.
+     */
     public function testBuildFormHasAllFields(): void
     {
         $form = $this->formFactory->create(ReservationType::class);
@@ -38,6 +48,9 @@ class ReservationTypeTest extends KernelTestCase
         $this->assertTrue($form->has('comment'));
     }
 
+    /**
+     * Test user field configuration.
+     */
     public function testUserFieldConfiguration(): void
     {
         $form = $this->formFactory->create(ReservationType::class);
@@ -49,6 +62,9 @@ class ReservationTypeTest extends KernelTestCase
         $this->assertTrue($config->getOption('disabled'));
     }
 
+    /**
+     * Test task field configuration.
+     */
     public function testTaskFieldConfiguration(): void
     {
         $form = $this->formFactory->create(ReservationType::class);
@@ -61,6 +77,9 @@ class ReservationTypeTest extends KernelTestCase
         $this->assertTrue($config->getOption('required'));
     }
 
+    /**
+     * Test status field configuration.
+     */
     public function testStatusFieldConfiguration(): void
     {
         $form = $this->formFactory->create(ReservationType::class);
@@ -76,6 +95,9 @@ class ReservationTypeTest extends KernelTestCase
         $this->assertEquals('label', $choices['label.pending']);
     }
 
+    /**
+     * Test user choice label configuration.
+     */
     public function testUserChoiceLabelConfiguration(): void
     {
         $form = $this->formFactory->create(ReservationType::class);
@@ -85,16 +107,21 @@ class ReservationTypeTest extends KernelTestCase
         $this->assertSame('email', $config->getOption('choice_label'));
     }
 
+    /**
+     * Test task choice label configuration.
+     */
     public function testTaskChoiceLabelConfiguration(): void
     {
         $form = $this->formFactory->create(ReservationType::class);
 
         $config = $form->get('task')->getConfig();
 
-        // IMPORTANT: raw option only
         $this->assertSame('title', $config->getOption('choice_label'));
     }
 
+    /**
+     * Test configure options.
+     */
     public function testConfigureOptions(): void
     {
         $resolver = new OptionsResolver();
@@ -106,9 +133,11 @@ class ReservationTypeTest extends KernelTestCase
         $this->assertEquals(Reservation::class, $options['data_class']);
     }
 
+    /**
+     * Test get block prefix.
+     */
     public function testGetBlockPrefix(): void
     {
-        // Symfony default (no override in class)
         $this->assertEquals(
             'reservation',
             (new ReservationType())->getBlockPrefix()

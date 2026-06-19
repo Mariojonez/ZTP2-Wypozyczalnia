@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Task controller test.
+ */
+
 namespace App\Tests\Controller;
 
 use App\Entity\Category;
@@ -14,17 +18,32 @@ use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class TaskControllerTest.
+ */
 class TaskControllerTest extends WebTestCase
 {
+    /**
+     * Base route.
+     */
     private const ROUTE = '/task';
 
+    /**
+     * HTTP client.
+     */
     private KernelBrowser $client;
 
+    /**
+     * Setup test client.
+     */
     protected function setUp(): void
     {
         $this->client = static::createClient();
     }
 
+    /**
+     * Anonymous user can access index page.
+     */
     public function testIndexAnonymous(): void
     {
         $this->client->request('GET', self::ROUTE);
@@ -33,6 +52,8 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Logged user can access index page.
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -50,6 +71,8 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Admin can access create page.
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -68,6 +91,8 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Regular user cannot access create page.
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -85,6 +110,8 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Task details page.
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -107,6 +134,8 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Task edit page.
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -130,6 +159,8 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Task delete page.
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -153,6 +184,8 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Create task.
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -167,10 +200,7 @@ class TaskControllerTest extends WebTestCase
 
         $category = $this->createCategory();
 
-        $crawler = $this->client->request(
-            'GET',
-            self::ROUTE.'/create'
-        );
+        $crawler = $this->client->request('GET', self::ROUTE.'/create');
 
         $form = $crawler->filter('form')->form([
             'task[title]' => 'Created task',
@@ -184,6 +214,12 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Create task helper.
+     *
+     * @param User $author Task author
+     *
+     * @return Task $task Task
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -204,6 +240,10 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Create category helper.
+     *
+     * @return Category $category Category
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -211,9 +251,7 @@ class TaskControllerTest extends WebTestCase
     {
         $category = new Category();
 
-        $category->setTitle(
-            'Category '.uniqid()
-        );
+        $category->setTitle('Category '.uniqid());
 
         $repository = static::getContainer()
             ->get(CategoryRepository::class);
@@ -224,6 +262,12 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Create user helper.
+     *
+     * @param array $roles User roles
+     *
+     * @return User $user User
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -234,17 +278,10 @@ class TaskControllerTest extends WebTestCase
 
         $user = new User();
 
-        $user->setEmail(
-            uniqid('', true).'@test.com'
-        );
-
+        $user->setEmail(uniqid('', true).'@test.com');
         $user->setRoles($roles);
-
         $user->setPassword(
-            $passwordHasher->hashPassword(
-                $user,
-                'password123'
-            )
+            $passwordHasher->hashPassword($user, 'password123')
         );
 
         $repository = static::getContainer()

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tag entity.
  */
@@ -110,15 +111,23 @@ class Tag
         $this->title = $title;
     }
 
+    /**
+     * Getter for slug.
+     *
+     * @return string|null Slug
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
+    /**
+     * Setter for slug.
+     *
+     * @param string $slug Slug
+     */
+    public function setSlug(string $slug): void
     {
         $this->slug = $slug;
-
-        return $this;
     }
 }

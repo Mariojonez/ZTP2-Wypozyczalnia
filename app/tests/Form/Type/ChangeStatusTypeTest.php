@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * ChangeStatusType test.
+ */
+
 namespace App\Tests\Form\Type;
 
 use App\Entity\Reservation;
@@ -16,6 +20,9 @@ class ChangeStatusTypeTest extends KernelTestCase
     private FormFactoryInterface $formFactory;
     private ChangeStatusType $type;
 
+    /**
+     * Set up test environment.
+     */
     protected function setUp(): void
     {
         self::bootKernel();
@@ -26,24 +33,25 @@ class ChangeStatusTypeTest extends KernelTestCase
         $this->type = $container->get(ChangeStatusType::class);
     }
 
+    /**
+     * Test build form has status field.
+     */
     public function testBuildFormHasStatusField(): void
     {
-        // when
         $form = $this->formFactory->create(ChangeStatusType::class);
 
-        // then
         $this->assertTrue($form->has('status'));
     }
 
+    /**
+     * Test status field configuration.
+     */
     public function testStatusFieldConfiguration(): void
     {
-        // given
         $form = $this->formFactory->create(ChangeStatusType::class);
 
-        // when
         $config = $form->get('status')->getConfig();
 
-        // then
         $this->assertEquals('label.status', $config->getOption('label'));
 
         $choices = $config->getOption('choices');
@@ -57,37 +65,40 @@ class ChangeStatusTypeTest extends KernelTestCase
         $this->assertEquals('label.cancelled', $choices['label.cancelled']);
     }
 
+    /**
+     * Test configure options.
+     */
     public function testConfigureOptions(): void
     {
-        // given
         $resolver = new OptionsResolver();
 
-        // when
         $this->type->configureOptions($resolver);
         $options = $resolver->resolve();
 
-        // then
         $this->assertArrayHasKey('data_class', $options);
         $this->assertEquals(Reservation::class, $options['data_class']);
     }
 
+    /**
+     * Test form submission.
+     */
     public function testFormSubmission(): void
     {
-        // given
         $reservation = new Reservation();
 
         $form = $this->formFactory->create(ChangeStatusType::class, $reservation);
 
-        // when
         $form->submit([
             'status' => 'label.accepted',
         ]);
 
-        // then
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals('label.accepted', $reservation->getStatus());
     }
 
+    /**
+     * Test get block prefix.
+     */
     public function testGetBlockPrefix(): void
     {
         $this->assertEquals(

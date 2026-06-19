@@ -1,22 +1,40 @@
 <?php
 
+/**
+ * Record controller test.
+ */
+
 namespace App\Tests\Controller;
 
-use App\Repository\RecordRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class RecordControllerTest.
+ */
 class RecordControllerTest extends WebTestCase
 {
+    /**
+     * Base route.
+     */
     private const ROUTE = '/record';
 
+    /**
+     * HTTP client.
+     */
     private KernelBrowser $client;
 
+    /**
+     * Setup test client.
+     */
     protected function setUp(): void
     {
         $this->client = static::createClient();
     }
 
+    /**
+     * Test index page.
+     */
     public function testIndex(): void
     {
         // when
@@ -29,6 +47,9 @@ class RecordControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
     }
 
+    /**
+     * Test record not found page.
+     */
     public function testViewNotFound(): void
     {
         // when
@@ -40,5 +61,4 @@ class RecordControllerTest extends WebTestCase
         // then
         self::assertResponseStatusCodeSame(404);
     }
-
 }

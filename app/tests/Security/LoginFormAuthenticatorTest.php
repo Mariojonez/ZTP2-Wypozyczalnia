@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * LoginFormAuthenticator test.
+ */
+
 namespace App\Tests\Security;
 
 use App\Security\LoginFormAuthenticator;
@@ -21,11 +25,12 @@ class LoginFormAuthenticatorTest extends TestCase
     private UrlGeneratorInterface $urlGenerator;
     private LoginFormAuthenticator $authenticator;
 
+    /**
+     * Set up test environment.
+     */
     protected function setUp(): void
     {
-        $this->urlGenerator = $this->createStub(
-            UrlGeneratorInterface::class
-        );
+        $this->urlGenerator = $this->createStub(UrlGeneratorInterface::class);
 
         $this->authenticator = new LoginFormAuthenticator(
             $this->urlGenerator
@@ -119,8 +124,6 @@ class LoginFormAuthenticatorTest extends TestCase
 
     /**
      * Test onAuthenticationSuccess redirects to target path.
-     *
-     * @throws \Exception
      */
     public function testOnAuthenticationSuccessRedirectsToTargetPath(): void
     {
@@ -156,14 +159,10 @@ class LoginFormAuthenticatorTest extends TestCase
 
     /**
      * Test onAuthenticationSuccess redirects to default route.
-     *
-     * @throws \Exception
      */
     public function testOnAuthenticationSuccessRedirectsToDefaultRoute(): void
     {
-        $urlGenerator = $this->createMock(
-            UrlGeneratorInterface::class
-        );
+        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
 
         $urlGenerator
             ->expects($this->once())
@@ -171,9 +170,7 @@ class LoginFormAuthenticatorTest extends TestCase
             ->with('task_index')
             ->willReturn('/tasks');
 
-        $authenticator = new LoginFormAuthenticator(
-            $urlGenerator
-        );
+        $authenticator = new LoginFormAuthenticator($urlGenerator);
 
         $session = $this->createMock(SessionInterface::class);
 
@@ -206,13 +203,13 @@ class LoginFormAuthenticatorTest extends TestCase
     }
 
     /**
-     * Test getLoginUrl method.
+     * Test getLoginUrl via public wrapper.
+     *
+     * @return void
      */
     public function testGetLoginUrl(): void
     {
-        $urlGenerator = $this->createMock(
-            UrlGeneratorInterface::class
-        );
+        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
 
         $urlGenerator
             ->expects($this->once())
@@ -221,6 +218,13 @@ class LoginFormAuthenticatorTest extends TestCase
             ->willReturn('/login');
 
         $authenticator = new class($urlGenerator) extends LoginFormAuthenticator {
+            /**
+             * Public wrapper for getLoginUrl().
+             *
+             * @param Request $request Request
+             *
+             * @return string Login URL
+             */
             public function getLoginUrlPublic(Request $request): string
             {
                 return $this->getLoginUrl($request);

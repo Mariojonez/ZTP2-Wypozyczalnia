@@ -47,7 +47,7 @@ class TaskFixtures extends AbstractBaseFixtures implements DependentFixtureInter
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );
-//            $task->setComment($this->faker->realText(1024));
+            //            $task->setComment($this->faker->realText(1024));
             $category = $this->getRandomReference('category', Category::class);
             $task->setCategory($category);
 
@@ -70,7 +70,6 @@ class TaskFixtures extends AbstractBaseFixtures implements DependentFixtureInter
     }
 
     /**
-     *
      * @return string[] of dependencies
      *
      * @psalm-return array{0: CategoryFixtures::class}
