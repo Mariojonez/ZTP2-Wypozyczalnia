@@ -27,6 +27,8 @@
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <span class="me-2">{{ app.user.email }}</span>
                     <a href="{{ url('app_logout') }}" class="btn btn-secondary">{{ 'action.logout'|trans }}</a>
+                    <a href="{{ url('change_password') }}" class="btn btn-secondary"> {{ 'action.change_password'|trans }}
+                    </a>
                 {% else %}
                     <a href="{{ url('app_login') }}" class="btn btn-secondary">{{ 'action.login'|trans }}</a>
                 {% endif %}

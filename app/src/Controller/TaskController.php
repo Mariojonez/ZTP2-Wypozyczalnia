@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class TaskController.
  */
-#[Route('/task')]
+#[Route('/book')]
 class TaskController extends AbstractController
 {
     /**
@@ -43,7 +43,7 @@ class TaskController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(name: 'task_index', methods: 'GET')]
+    #[Route(name: 'book_index', methods: 'GET')]
     public function index(#[MapQueryParameter] int $page = 1): Response
     {
         $pagination = $this->taskService->getPaginatedList(
@@ -62,7 +62,7 @@ class TaskController extends AbstractController
      */
     #[Route(
         '/{id}',
-        name: 'task_show',
+        name: 'book_show',
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET'
     )]
@@ -81,7 +81,7 @@ class TaskController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/create', name: 'task_create', methods: 'GET|POST')]
+    #[Route('/create', name: 'book_create', methods: 'GET|POST')]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request): Response
     {
@@ -92,7 +92,7 @@ class TaskController extends AbstractController
         $form = $this->createForm(
             TaskType::class,
             $task,
-            ['action' => $this->generateUrl('task_create')]
+            ['action' => $this->generateUrl('book_create')]
         );
         $form->handleRequest($request);
 
@@ -104,7 +104,7 @@ class TaskController extends AbstractController
                 $this->translator->trans('message.created_successfully')
             );
 
-            return $this->redirectToRoute('task_index');
+            return $this->redirectToRoute('book_index');
         }
 
         return $this->render(
@@ -121,7 +121,7 @@ class TaskController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'task_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[Route('/{id}/edit', name: 'book_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
     #[IsGranted('EDIT', subject: 'task')]
     public function edit(Request $request, Task $task): Response
     {
@@ -130,7 +130,7 @@ class TaskController extends AbstractController
             $task,
             [
                 'method' => 'PUT',
-                'action' => $this->generateUrl('task_edit', ['id' => $task->getId()]),
+                'action' => $this->generateUrl('book_edit', ['id' => $task->getId()]),
             ]
         );
         $form->handleRequest($request);
@@ -143,7 +143,7 @@ class TaskController extends AbstractController
                 $this->translator->trans('message.edited_successfully')
             );
 
-            return $this->redirectToRoute('task_index');
+            return $this->redirectToRoute('book_index');
         }
 
         return $this->render(
@@ -163,7 +163,7 @@ class TaskController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/delete', name: 'task_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[Route('/{id}/delete', name: 'book_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     #[IsGranted('DELETE', subject: 'task')]
     public function delete(Request $request, Task $task): Response
     {
@@ -172,7 +172,7 @@ class TaskController extends AbstractController
             $task,
             [
                 'method' => 'DELETE',
-                'action' => $this->generateUrl('task_delete', ['id' => $task->getId()]),
+                'action' => $this->generateUrl('book_delete', ['id' => $task->getId()]),
             ]
         );
         $form->handleRequest($request);
@@ -185,7 +185,7 @@ class TaskController extends AbstractController
                 $this->translator->trans('message.deleted_successfully')
             );
 
-            return $this->redirectToRoute('task_index');
+            return $this->redirectToRoute('book_index');
         }
 
         return $this->render(

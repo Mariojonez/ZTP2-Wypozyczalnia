@@ -167,8 +167,8 @@ class LoginFormAuthenticatorTest extends TestCase
         $urlGenerator
             ->expects($this->once())
             ->method('generate')
-            ->with('task_index')
-            ->willReturn('/tasks');
+            ->with('book_index')
+            ->willReturn('/books');
 
         $authenticator = new LoginFormAuthenticator($urlGenerator);
 
@@ -197,7 +197,7 @@ class LoginFormAuthenticatorTest extends TestCase
         );
 
         $this->assertSame(
-            '/tasks',
+            '/books',
             $response->getTargetUrl()
         );
     }

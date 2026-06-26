@@ -270,6 +270,16 @@
           <source>title.reservation_new</source>
           <target>New reservation</target>
       </trans-unit>
+
+        <trans-unit id="action.change_password">
+            <source>action.change_password</source>
+            <target>Change password</target>
+        </trans-unit>
+
+        <trans-unit id="title.change_password">
+            <source>title.change_password</source>
+            <target>Change password</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

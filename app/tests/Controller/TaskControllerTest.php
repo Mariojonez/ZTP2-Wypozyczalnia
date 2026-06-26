@@ -26,7 +26,7 @@ class TaskControllerTest extends WebTestCase
     /**
      * Base route.
      */
-    private const ROUTE = '/task';
+    private const ROUTE = '/book';
 
     /**
      * HTTP client.
