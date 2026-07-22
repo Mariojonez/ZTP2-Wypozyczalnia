@@ -306,6 +306,31 @@
                 <source>title.change_password</source>
                 <target>Zmień hasło</target>
             </trans-unit>
+
+            <trans-unit id="label.current_password">
+                <source>label.current_password</source>
+                <target>Aktualne hasło</target>
+            </trans-unit>
+
+            <trans-unit id="label.new_password">
+                <source>label.new_password</source>
+                <target>Nowe hasło</target>
+            </trans-unit>
+
+            <trans-unit id="label.repeat_new_password">
+                <source>label.repeat_new_password</source>
+                <target>Powtórz nowe hasło</target>
+            </trans-unit>
+
+            <trans-unit id="message.invalid_current_password">
+                <source>message.invalid_current_password</source>
+                <target>Niepoprawne hasło</target>
+            </trans-unit>
+
+            <trans-unit id="message.password_changed_successfully">
+                <source>message.password_changed_successfully</source>
+                <target>Hasło zmienione pomyślnie</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

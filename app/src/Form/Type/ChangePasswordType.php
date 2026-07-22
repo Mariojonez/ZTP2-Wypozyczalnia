@@ -30,7 +30,7 @@ class ChangePasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('currentPassword', PasswordType::class, [
-            'label' => 'Aktualne hasło',
+            'label' => 'label.current_password',
             'mapped' => false,
             'constraints' => [new NotBlank()],
         ]);
@@ -38,8 +38,8 @@ class ChangePasswordType extends AbstractType
         $builder->add('newPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'mapped' => false,
-            'first_options' => ['label' => 'Nowe hasło'],
-            'second_options' => ['label' => 'Powtórz nowe hasło'],
+            'first_options' => ['label' => 'label.new_password'],
+            'second_options' => ['label' => 'label.repeat_new_password'],
             'constraints' => [
                 new NotBlank(),
                 new Length(min: 6),

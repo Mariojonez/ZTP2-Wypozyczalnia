@@ -201,6 +201,7 @@ class CategoryController extends AbstractController
     /**
      * Show tasks action.
      *
+     * @param Request $request HTTP request
      * @param Category $category Category
      *
      * @return Response HTTP response
@@ -212,13 +213,15 @@ class CategoryController extends AbstractController
         methods: 'GET'
     )]
     #[IsGranted('VIEW_CATEGORY', subject: 'category')]
-    public function showTasks(Category $category): Response
+    public function showTasks(Request $request, Category $category): Response
     {
-        $tasks = $this->taskService->getTasksByCategory($category);
+        $page = $request->query->getInt('page', 1);
+
+        $pagination = $this->taskService->getPaginatedListByCategory($page, $category);
 
         return $this->render('category/show_tasks.html.twig', [
             'category' => $category,
-            'tasks' => $tasks,
+            'pagination' => $pagination,
         ]);
     }
 }

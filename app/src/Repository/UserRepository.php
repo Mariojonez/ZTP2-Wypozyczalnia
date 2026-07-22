@@ -8,6 +8,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -44,17 +45,43 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Save a user entity.
+     * Save user entity.
      *
-     * @param User $user The user entity to save
+     * @param User $user User entity
      */
     public function save(User $user): void
     {
-        // changed from $this->_em to getEntityManager()
-        // because $_em is null in current Doctrine/Symfony versions
-        $this->getEntityManager()->persist($user);
+        $entityManager = $this->getEntityManager();
 
-        // changed from $this->_em to getEntityManager()
-        $this->getEntityManager()->flush();
+        $entityManager->persist($user);
+        $entityManager->flush();
+    }
+
+    /**
+     * Delete user entity.
+     *
+     * @param User $user User entity
+     */
+    public function delete(User $user): void
+    {
+        $entityManager = $this->getEntityManager();
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+    }
+
+    /**
+     * Get all users query.
+     *
+     * This method returns a query builder instead of executing
+     * the query, because the paginator needs to modify the query
+     * with LIMIT/OFFSET internally.
+     *
+     * @return QueryBuilder Users query
+     */
+    public function queryAll(): QueryBuilder
+    {
+        return $this->createQueryBuilder('user')
+            ->orderBy('user.email', 'ASC');
     }
 }

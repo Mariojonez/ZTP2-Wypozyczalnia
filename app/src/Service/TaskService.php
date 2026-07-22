@@ -93,4 +93,21 @@ class TaskService implements TaskServiceInterface
     {
         return $this->taskRepository->findBy(['category' => $category]);
     }
+
+    /**
+     * Get paginated list by category.
+     *
+     * @param int      $page     Page number
+     * @param Category $category Category
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function getPaginatedListByCategory(int $page, Category $category): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->taskRepository->queryByCategory($category),
+            $page,
+            self::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
 }

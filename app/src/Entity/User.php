@@ -50,7 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Password.
      */
     #[ORM\Column(type: 'string')]
-    #[Assert\NotBlank]
     private ?string $password = null;
 
     /**
@@ -168,5 +167,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function upgradePassword(string $newHashedPassword): void
     {
         $this->setPassword($newHashedPassword);
+    }
+
+    /**
+     * Plain password.
+     */
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 8)]
+    private ?string $plainPassword = null;
+
+    /**
+     * Getter for plain password.
+     *
+     * @return string|null Plain password
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Setter for plain password.
+     *
+     * @param string|null $plainPassword Plain password
+     */
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 }

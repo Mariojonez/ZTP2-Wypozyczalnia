@@ -46,4 +46,14 @@ interface TaskServiceInterface
      * @return Task[]
      */
     public function getTasksByCategory(Category $category): array;
+
+    /**
+     * Get paginated list by category.
+     *
+     * @param int      $page     Page number
+     * @param Category $category Category
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function getPaginatedListByCategory(int $page, Category $category): PaginationInterface;
 }

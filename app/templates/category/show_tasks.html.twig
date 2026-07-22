@@ -7,18 +7,32 @@
 {% block body %}
     <h1>{{ 'title.show_tasks'|trans }} {{ category.title }}</h1>
 
-    {% if tasks is not empty %}
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="row text-center">
+            <div class="col-md-6">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+            <div class="col-md-6">
+                <a href="{{ url('category_index') }}"
+                   title="{{ 'action.back_to_list'|trans }}"
+                   class="btn btn-secondary">
+                    {{ 'action.back_to_list'|trans }}
+                </a>
+            </div>
+        </div>
+
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ 'label.id'|trans }}</th>
-                <th>{{ 'label.title'|trans }}</th>
-                <th>{{ 'label.created_at'|trans }}</th>
-                <th>{{ 'label.updated_at'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'task.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'task.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'task.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'task.updatedAt') }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for task in tasks %}
+            {% for task in pagination.items %}
                 <tr>
                     <td>{{ task.id }}</td>
                     <td>{{ task.title }}</td>
@@ -28,14 +42,13 @@
             {% endfor %}
             </tbody>
         </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
     {% else %}
         <p>{{ 'message.record_not_found'|trans }}</p>
     {% endif %}
-
-    <p>
-        <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
-            {{ 'action.back_to_list'|trans }}
-        </a>
-    </p>
 
 {% endblock %}
