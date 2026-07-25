@@ -71,13 +71,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Get all users query.
+     * Query all users.
      *
-     * This method returns a query builder instead of executing
-     * the query, because the paginator needs to modify the query
-     * with LIMIT/OFFSET internally.
-     *
-     * @return QueryBuilder Users query
+     * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
     {

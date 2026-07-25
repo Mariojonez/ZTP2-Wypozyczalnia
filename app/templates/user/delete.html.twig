@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_delete'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.user_delete'|trans }}</h1>
+
+    <p>
+        {{ 'message.confirm_delete'|trans }}
+        <strong>{{ user.email }}</strong>?
+    </p>
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-danger">
+        {{ 'action.delete'|trans }}
+    </button>
+
+    <a href="{{ url('user_index') }}"
+       class="btn btn-secondary">
+        {{ 'action.cancel'|trans }}
+    </a>
+
+    {{ form_end(form) }}
+{% endblock %}

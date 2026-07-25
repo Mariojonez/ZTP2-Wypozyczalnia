@@ -44,7 +44,6 @@ class RegistrationController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/user/register', name: 'user_register', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function register(
         Request $request,
         UserPasswordHasherInterface $passwordHasher,

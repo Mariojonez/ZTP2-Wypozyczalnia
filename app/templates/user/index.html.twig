@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.user_list'|trans }}</h1>
+
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="row text-center">
+            <div class="col-md-6">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+            <div class="col-md-6">
+                <a href="{{ url('book_index') }}"
+                   title="{{ 'action.task_list'|trans }}"
+                   class="btn btn-secondary">
+                    {{ 'action.task_list'|trans }}
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'user.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.email'|trans, 'user.email') }}</th>
+                <th>{{ 'label.roles'|trans }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for user in pagination.items %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>
+{#                        <a href="{{ url('user_edit', {id: user.id}) }}"#}
+{#                           class="btn btn-primary btn-sm"#}
+{#                           title="{{ 'action.edit'|trans }}">#}
+{#                            {{ 'action.edit'|trans }}#}
+{#                        </a>#}
+
+                        <a href="{{ url('change_password', {id: user.id}) }}"
+                           class="btn btn-warning btn-sm"
+                           title="{{ 'action.change_password'|trans }}">
+                            {{ 'action.change_password'|trans }}
+                        </a>
+
+                        <a href="{{ url('user_delete', {id: user.id}) }}"
+                           class="btn btn-danger btn-sm"
+                           title="{{ 'action.delete'|trans }}">
+                            {{ 'action.delete'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>{{ 'message.empty_list'|trans }}</p>
+    {% endif %}
+{% endblock %}
