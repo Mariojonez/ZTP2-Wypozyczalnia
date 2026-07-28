@@ -45,9 +45,8 @@
 {#                            {{ 'action.edit'|trans }}#}
 {#                        </a>#}
 
-                        <a href="{{ url('change_password', {id: user.id}) }}"
-                           class="btn btn-warning btn-sm"
-                           title="{{ 'action.change_password'|trans }}">
+                        <a href="{{ path('user_change_password', {id: user.id}) }}"
+                           class="btn btn-warning btn-sm">
                             {{ 'action.change_password'|trans }}
                         </a>
 

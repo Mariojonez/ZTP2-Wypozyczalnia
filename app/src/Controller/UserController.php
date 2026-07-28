@@ -6,16 +6,18 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\Type\AdminChangePasswordType;
 use App\Service\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use App\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class UserController.
@@ -102,6 +104,59 @@ class UserController extends AbstractController
 
         return $this->render(
             'user/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * Change user password.
+     *
+     * @param Request                     $request        HTTP request
+     * @param User                        $user           User entity
+     * @param UserPasswordHasherInterface $passwordHasher Password hasher
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/{id}/change-password',
+        name: 'user_change_password',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: ['GET', 'POST']
+    )]
+    #[IsGranted('ROLE_ADMIN')]
+    public function changePassword(
+        Request $request,
+        User $user,
+        UserPasswordHasherInterface $passwordHasher,
+    ): Response {
+        $form = $this->createForm(AdminChangePasswordType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $form->get('newPassword')->getData()
+            );
+
+            $this->userService->changePassword(
+                $user,
+                $hashedPassword
+            );
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.password_changed_successfully')
+            );
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render(
+            'user/change_password.html.twig',
             [
                 'form' => $form->createView(),
                 'user' => $user,

@@ -31,12 +31,14 @@
                 {% else %}
                     <a href="{{ url('app_login') }}" class="btn btn-secondary">{{ 'action.login'|trans }}</a>
                 {% endif %}
-{#                {% if is_granted('LIST', app.user) %}#}
-{#                    <a href="{{ url('user_list') }}" title="{{ 'action.user_list'|trans }}" class="btn btn-secondary">#}
-{#                        {{ 'action.user_list'|trans }}#}
-{#                    </a>#}
-{#                {% endif %}#}
-                <a href="{{ url('user_register') }}" class="btn btn-secondary"> {{ 'action.user_register'|trans }}</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('user_index') }}"
+                       title="{{ 'action.user_list'|trans }}"
+                       class="btn btn-secondary">
+                        {{ 'action.user_list'|trans }}
+                    </a>
+                {% endif %}
+                <a href="{{ url('register') }}" class="btn btn-secondary"> {{ 'action.user_register'|trans }}</a>
             </div>
         </div>
     </div>
