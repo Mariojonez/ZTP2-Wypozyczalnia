@@ -331,6 +331,51 @@
                 <source>message.password_changed_successfully</source>
                 <target>Hasło zmienione pomyślnie</target>
             </trans-unit>
+
+            <trans-unit id="message.cannot_delete_yourself">
+                <source>message.cannot_delete_yourself</source>
+                <target>Nie możesz usunąć samego siebie</target>
+            </trans-unit>
+
+            <trans-unit id="action.user_list">
+                <source>action.user_list</source>
+                <target>Lista użytkowników</target>
+            </trans-unit>
+
+            <trans-unit id="action.user_register">
+                <source>action.user_register</source>
+                <target>Rejestracja użytkownika</target>
+            </trans-unit>
+
+            <trans-unit id="label.roles">
+                <source>label.roles</source>
+                <target>Role</target>
+            </trans-unit>
+
+            <trans-unit id="action.cancel">
+                <source>action.cancel</source>
+                <target>Anuluj</target>
+            </trans-unit>
+
+            <trans-unit id="title.user_register">
+                <source>title.user_register</source>
+                <target>Rejestracja użytkownika</target>
+            </trans-unit>
+
+            <trans-unit id="title.user_delete">
+                <source>title.user_delete</source>
+                <target>Usuwanie użytkownika</target>
+            </trans-unit>
+
+            <trans-unit id="message.confirm_delete">
+                <source>message.confirm_delete</source>
+                <target>Czy na pewno chcesz usunąć tego użytkownika?</target>
+            </trans-unit>
+
+            <trans-unit id="action.book_list">
+                <source>action.book_list</source>
+                <target>Lista książek</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
