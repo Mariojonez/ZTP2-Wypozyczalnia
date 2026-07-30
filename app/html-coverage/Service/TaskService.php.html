@@ -51,7 +51,7 @@
        </div>
 </td>
        <td class="success small"><div align="right">100.00%</div></td>
-       <td class="success small"><div align="right">9&nbsp;/&nbsp;9</div></td>
+       <td class="success small"><div align="right">14&nbsp;/&nbsp;14</div></td>
        <td class="success big">       <div class="progress">
          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="visually-hidden">100.00% covered (success)</span>
@@ -59,7 +59,7 @@
        </div>
 </td>
        <td class="success small"><div align="right">100.00%</div></td>
-       <td class="success small"><div align="right">5&nbsp;/&nbsp;5</div></td>
+       <td class="success small"><div align="right">6&nbsp;/&nbsp;6</div></td>
        <td class="success small"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></td>
        <td class="success big">       <div class="progress">
          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
@@ -80,7 +80,7 @@
        </div>
 </td>
        <td class="success small"><div align="right">100.00%</div></td>
-       <td class="success small"><div align="right">9&nbsp;/&nbsp;9</div></td>
+       <td class="success small"><div align="right">14&nbsp;/&nbsp;14</div></td>
        <td class="success big">       <div class="progress">
          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="visually-hidden">100.00% covered (success)</span>
@@ -88,8 +88,8 @@
        </div>
 </td>
        <td class="success small"><div align="right">100.00%</div></td>
-       <td class="success small"><div align="right">5&nbsp;/&nbsp;5</div></td>
-       <td class="success small">5</td>
+       <td class="success small"><div align="right">6&nbsp;/&nbsp;6</div></td>
+       <td class="success small">6</td>
        <td class="success big">       <div class="progress">
          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
            <span class="visually-hidden">100.00% covered (success)</span>
@@ -210,6 +210,28 @@
        <td class="success" colspan="3"></td>
       </tr>
 
+      <tr>
+       <td class="success">&nbsp;<a href="#105"><abbr title="getPaginatedListByCategory(int $page, Category $category): PaginationInterface">getPaginatedListByCategory</abbr></a></td>
+       <td class="success big">       <div class="progress">
+         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
+           <span class="visually-hidden">100.00% covered (success)</span>
+         </div>
+       </div>
+</td>
+       <td class="success small"><div align="right">100.00%</div></td>
+       <td class="success small"><div align="right">5&nbsp;/&nbsp;5</div></td>
+       <td class="success big">       <div class="progress">
+         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%">
+           <span class="visually-hidden">100.00% covered (success)</span>
+         </div>
+       </div>
+</td>
+       <td class="success small"><div align="right">100.00%</div></td>
+       <td class="success small"><div align="right">1&nbsp;/&nbsp;1</div></td>
+       <td class="success small">1</td>
+       <td class="success" colspan="3"></td>
+      </tr>
+
 
      </tbody>
     </table>
@@ -309,9 +331,26 @@
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="91" href="#91">91</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="92" href="#92">92</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getTasksByCategory</span><span class="keyword">(</span><span class="default">Category</span><span class="default">&nbsp;</span><span class="default">$category</span><span class="keyword">)</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="keyword">array</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="93" href="#93">93</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
-    <tr class="covered-by-large-tests popin d-flex"><td  data-bs-title="2 tests cover line 94" data-bs-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Controller\CategoryControllerTest::testShowTasks&lt;/li&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Service\TaskServiceTest::testGetTasksByCategory&lt;/li&gt;&lt;/ul&gt;" data-bs-placement="top" data-bs-html="true" class="col-1 text-end"><a id="94" href="#94">94</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span class="default">&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">taskRepository</span><span class="default">-&gt;</span><span class="default">findBy</span><span class="keyword">(</span><span class="keyword">[</span><span class="default">'category'</span><span class="default">&nbsp;</span><span class="default">=&gt;</span><span class="default">&nbsp;</span><span class="default">$category</span><span class="keyword">]</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
+    <tr class="covered-by-large-tests popin d-flex"><td  data-bs-title="1 test covers line 94" data-bs-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Service\TaskServiceTest::testGetTasksByCategory&lt;/li&gt;&lt;/ul&gt;" data-bs-placement="top" data-bs-html="true" class="col-1 text-end"><a id="94" href="#94">94</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span class="default">&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">taskRepository</span><span class="default">-&gt;</span><span class="default">findBy</span><span class="keyword">(</span><span class="keyword">[</span><span class="default">'category'</span><span class="default">&nbsp;</span><span class="default">=&gt;</span><span class="default">&nbsp;</span><span class="default">$category</span><span class="keyword">]</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="95" href="#95">95</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="96" href="#96">96</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="96" href="#96">96</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="97" href="#97">97</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="98" href="#98">98</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Get&nbsp;paginated&nbsp;list&nbsp;by&nbsp;category.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="99" href="#99">99</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="100" href="#100">100</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page&nbsp;number</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="101" href="#101">101</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;Category&nbsp;$category&nbsp;Category</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="102" href="#102">102</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="103" href="#103">103</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;PaginationInterface&lt;string,&nbsp;mixed&gt;&nbsp;Paginated&nbsp;list</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="104" href="#104">104</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="105" href="#105">105</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getPaginatedListByCategory</span><span class="keyword">(</span><span class="default">int</span><span class="default">&nbsp;</span><span class="default">$page</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">Category</span><span class="default">&nbsp;</span><span class="default">$category</span><span class="keyword">)</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">PaginationInterface</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="106" href="#106">106</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">{</span></td></tr>
+    <tr class="covered-by-large-tests popin d-flex"><td  data-bs-title="1 test covers line 107" data-bs-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Controller\CategoryControllerTest::testShowTasks&lt;/li&gt;&lt;/ul&gt;" data-bs-placement="top" data-bs-html="true" class="col-1 text-end"><a id="107" href="#107">107</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span class="default">&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">paginator</span><span class="default">-&gt;</span><span class="default">paginate</span><span class="keyword">(</span></td></tr>
+    <tr class="covered-by-large-tests popin d-flex"><td  data-bs-title="1 test covers line 108" data-bs-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Controller\CategoryControllerTest::testShowTasks&lt;/li&gt;&lt;/ul&gt;" data-bs-placement="top" data-bs-html="true" class="col-1 text-end"><a id="108" href="#108">108</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">taskRepository</span><span class="default">-&gt;</span><span class="default">queryByCategory</span><span class="keyword">(</span><span class="default">$category</span><span class="keyword">)</span><span class="keyword">,</span></td></tr>
+    <tr class="covered-by-large-tests popin d-flex"><td  data-bs-title="1 test covers line 109" data-bs-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Controller\CategoryControllerTest::testShowTasks&lt;/li&gt;&lt;/ul&gt;" data-bs-placement="top" data-bs-html="true" class="col-1 text-end"><a id="109" href="#109">109</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$page</span><span class="keyword">,</span></td></tr>
+    <tr class="covered-by-large-tests popin d-flex"><td  data-bs-title="1 test covers line 110" data-bs-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Controller\CategoryControllerTest::testShowTasks&lt;/li&gt;&lt;/ul&gt;" data-bs-placement="top" data-bs-html="true" class="col-1 text-end"><a id="110" href="#110">110</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">self</span><span class="default">::</span><span class="default">PAGINATOR_ITEMS_PER_PAGE</span></td></tr>
+    <tr class="covered-by-large-tests popin d-flex"><td  data-bs-title="1 test covers line 111" data-bs-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Controller\CategoryControllerTest::testShowTasks&lt;/li&gt;&lt;/ul&gt;" data-bs-placement="top" data-bs-html="true" class="col-1 text-end"><a id="111" href="#111">111</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="112" href="#112">112</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="113" href="#113">113</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
 
 </tbody>
 </table>
@@ -322,7 +361,7 @@
     <h4>Legend</h4>
     <p><span class="legend covered-by-small-tests">Covered by small (and larger) tests</span><span class="legend covered-by-medium-tests">Covered by medium (and large) tests</span><span class="legend covered-by-large-tests">Covered by large tests (and tests of unknown size)</span><span class="legend not-covered">Not covered</span><span class="legend not-coverable">Not coverable</span></p>
     <p>
-     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 14.1.1</a> using <a href="https://www.php.net/" target="_top">PHP 8.5.4</a> and <a href="https://phpunit.de/">PHPUnit 13.1.4</a> at Fri Jun 26 12:36:51 UTC 2026.</small>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 14.1.1</a> using <a href="https://www.php.net/" target="_top">PHP 8.5.8</a> and <a href="https://phpunit.de/">PHPUnit 13.1.4</a> at Thu Jul 30 11:43:19 UTC 2026.</small>
     </p>
     <a title="Back to the top" id="toplink" href="#">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M12 11L6 5l-6 6h12z"/></svg>

@@ -28,10 +28,8 @@ class RegistrationController extends AbstractController
      * @param UserServiceInterface $userService User service
      * @param TranslatorInterface  $translator  Translator
      */
-    public function __construct(
-        private readonly UserServiceInterface $userService,
-        private readonly TranslatorInterface $translator,
-    ) {
+    public function __construct(private readonly UserServiceInterface $userService, private readonly TranslatorInterface $translator)
+    {
     }
 
     /**
@@ -43,10 +41,8 @@ class RegistrationController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/register', name: 'register', methods: ['GET', 'POST'])]
-    public function register(
-        Request $request,
-        UserPasswordHasherInterface $passwordHasher,
-    ): Response {
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    {
         $user = new User();
 
         $user->setRoles([

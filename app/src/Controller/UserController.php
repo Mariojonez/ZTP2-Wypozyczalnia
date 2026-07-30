@@ -31,7 +31,9 @@ class UserController extends AbstractController
      * @param UserServiceInterface $userService User service
      * @param TranslatorInterface  $translator  Translator
      */
-    public function __construct(private readonly UserServiceInterface $userService, private readonly TranslatorInterface $translator,) {}
+    public function __construct(private readonly UserServiceInterface $userService, private readonly TranslatorInterface $translator)
+    {
+    }
 
     /**
      * Index action.
@@ -42,9 +44,8 @@ class UserController extends AbstractController
      */
     #[Route(name: 'user_index', methods: 'GET')]
     #[IsGranted('ROLE_ADMIN')]
-    public function index(
-        #[MapQueryParameter] int $page = 1
-    ): Response {
+    public function index(#[MapQueryParameter] int $page = 1): Response
+    {
         $pagination = $this->userService->getPaginatedList($page);
 
         return $this->render(
@@ -82,7 +83,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($this->getUser() === $user) {
                 $this->addFlash(
                     'error',
@@ -120,18 +120,10 @@ class UserController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(
-        '/{id}/change-password',
-        name: 'user_change_password',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: ['GET', 'POST']
-    )]
+    #[Route('/{id}/change-password', name: 'user_change_password', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function changePassword(
-        Request $request,
-        User $user,
-        UserPasswordHasherInterface $passwordHasher,
-    ): Response {
+    public function changePassword(Request $request, User $user, UserPasswordHasherInterface $passwordHasher): Response
+    {
         $form = $this->createForm(AdminChangePasswordType::class);
 
         $form->handleRequest($request);

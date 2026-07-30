@@ -6,6 +6,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Service\CategoryServiceInterface;
@@ -20,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 /**
  * Class CategoryController.
  */
-#[\Symfony\Component\Routing\Attribute\Route('/category')]
+#[Route('/category')]
 class CategoryController extends AbstractController
 {
     /**
@@ -41,7 +42,7 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route(name: 'category_index', methods: 'GET')]
+    #[Route(name: 'category_index', methods: 'GET')]
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
@@ -57,7 +58,7 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route(
+    #[Route(
         '/{id}',
         name: 'category_show',
         requirements: ['id' => '[1-9]\d*'],
@@ -76,7 +77,7 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route(
+    #[Route(
         '/create',
         name: 'category_create',
         methods: 'GET|POST',
@@ -113,7 +114,7 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/{id}/edit', name: 'category_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[Route('/{id}/edit', name: 'category_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
     #[IsGranted('EDIT_CATEGORY', subject: 'category')]
     public function edit(Request $request, Category $category): Response
     {
@@ -155,7 +156,7 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     #[IsGranted('DELETE_CATEGORY', subject: 'category')]
     public function delete(Request $request, Category $category): Response
     {
@@ -201,12 +202,12 @@ class CategoryController extends AbstractController
     /**
      * Show tasks action.
      *
-     * @param Request $request HTTP request
+     * @param Request  $request  HTTP request
      * @param Category $category Category
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route(
+    #[Route(
         '/{id}/tasks',
         name: 'category_show_tasks',
         requirements: ['id' => '[1-9]\d*'],

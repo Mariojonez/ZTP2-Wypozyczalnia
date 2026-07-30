@@ -25,13 +25,11 @@ class ProfileController extends AbstractController
     /**
      * Constructor.
      *
-     * @param UserServiceInterface  $userService User service
-     * @param TranslatorInterface    $translator  Translator service
+     * @param UserServiceInterface $userService User service
+     * @param TranslatorInterface  $translator  Translator service
      */
-    public function __construct(
-        private readonly UserServiceInterface $userService,
-        private readonly TranslatorInterface $translator
-    ) {
+    public function __construct(private readonly UserServiceInterface $userService, private readonly TranslatorInterface $translator)
+    {
     }
 
     /**
@@ -44,10 +42,8 @@ class ProfileController extends AbstractController
      */
     #[Route('/profile/change-password', name: 'change_password')]
     #[IsGranted('ROLE_USER')]
-    public function changePassword(
-        Request $request,
-        UserPasswordHasherInterface $passwordHasher
-    ): Response {
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    {
         /** @var User $user */
         $user = $this->getUser();
 

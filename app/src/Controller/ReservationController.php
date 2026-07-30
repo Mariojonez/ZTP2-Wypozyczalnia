@@ -6,6 +6,8 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Reservation;
 use App\Form\Type\ChangeStatusType;
 use App\Form\Type\ReservationType;
@@ -39,12 +41,12 @@ class ReservationController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/reservation/new', name: 'reservation_new')]
+    #[Route('/reservation/new', name: 'reservation_new')]
     public function new(Request $request): Response
     {
         $user = $this->getUser();
 
-        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+        if (!$user instanceof UserInterface) {
             throw new AccessDeniedException('You must be logged in to create a reservation.');
         }
 
@@ -80,13 +82,13 @@ class ReservationController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/reservations', name: 'reservation_list')]
+    #[Route('/reservations', name: 'reservation_list')]
     public function list(): Response
     {
         // Get the current logged-in user
         $user = $this->getUser();
 
-        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+        if (!$user instanceof UserInterface) {
             throw $this->createAccessDeniedException('You must be logged in to view reservations.');
         }
 
@@ -112,7 +114,7 @@ class ReservationController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/reservations/{id}/change-status', name: 'reservation_change_status', methods: ['GET', 'POST'])]
+    #[Route('/reservations/{id}/change-status', name: 'reservation_change_status', methods: ['GET', 'POST'])]
     #[IsGranted('CHANGE_STATUS', subject: 'reservation')]
     public function changeStatus(Request $request, Reservation $reservation): Response
     {
