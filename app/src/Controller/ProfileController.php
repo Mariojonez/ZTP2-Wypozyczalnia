@@ -58,7 +58,7 @@ class ProfileController extends AbstractController
             $currentPassword = $form->get('currentPassword')->getData();
             $newPassword = $form->get('newPassword')->getData();
 
-            /**
+            /*
              * Validate current password.
              */
             if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
@@ -75,7 +75,7 @@ class ProfileController extends AbstractController
              */
             $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
 
-            /**
+            /*
              * Update user password via service layer.
              */
             $this->userService->changePassword($user, $hashedPassword);

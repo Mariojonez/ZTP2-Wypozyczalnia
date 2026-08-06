@@ -203,9 +203,7 @@ class LoginFormAuthenticatorTest extends TestCase
     }
 
     /**
-     * Test getLoginUrl via public wrapper.
-     *
-     * @return void
+     * Test getLoginUrl().
      */
     public function testGetLoginUrl(): void
     {
@@ -217,23 +215,17 @@ class LoginFormAuthenticatorTest extends TestCase
             ->with('app_login')
             ->willReturn('/login');
 
-        $authenticator = new class($urlGenerator) extends LoginFormAuthenticator {
-            /**
-             * Public wrapper for getLoginUrl().
-             *
-             * @param Request $request Request
-             *
-             * @return string Login URL
-             */
-            public function getLoginUrlPublic(Request $request): string
-            {
-                return $this->getLoginUrl($request);
-            }
-        };
+        $reflection = new \ReflectionClass(LoginFormAuthenticator::class);
+
+        /** @var LoginFormAuthenticator $authenticator */
+        $authenticator = $reflection->newInstance($urlGenerator);
+
+        $method = $reflection->getMethod('getLoginUrl');
+        $method->setAccessible(true);
 
         $request = new Request();
 
-        $result = $authenticator->getLoginUrlPublic($request);
+        $result = $method->invoke($authenticator, $request);
 
         $this->assertSame('/login', $result);
     }
