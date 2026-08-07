@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Service\ReservationServiceInterface;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
 /**
  * Class ReservationController.
@@ -30,7 +32,7 @@ class ReservationController extends AbstractController
      * @param TranslatorInterface   $translator            Translator
      * @param ReservationRepository $reservationRepository Reservation repository
      */
-    public function __construct(private readonly TranslatorInterface $translator, private readonly ReservationRepository $reservationRepository)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly ReservationRepository $reservationRepository, private readonly ReservationServiceInterface $reservationService)
     {
     }
 
@@ -77,33 +79,26 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    /**
-     * Lists all reservations.
-     *
-     * @return Response HTTP response
-     */
     #[Route('/reservations', name: 'reservation_list')]
-    public function list(): Response
-    {
-        // Get the current logged-in user
+    public function list(
+        #[MapQueryParameter] int $page = 1): Response {
+        /** @var UserInterface|null $user */
         $user = $this->getUser();
 
         if (!$user instanceof UserInterface) {
-            throw $this->createAccessDeniedException('You must be logged in to view reservations.');
+            throw $this->createAccessDeniedException();
         }
 
-        // Check if the user is an admin
-        if ($this->isGranted('ROLE_ADMIN')) {
-            // Fetch all reservations
-            $reservations = $this->reservationRepository->findAll();
-        } else {
-            // Fetch reservations associated with the current user
-            $reservations = $this->reservationRepository->findBy(['user' => $user]);
-        }
-
-        return $this->render('reservation/list.html.twig', [
-            'reservations' => $reservations,
-        ]);
+        return $this->render(
+            'reservation/list.html.twig',
+            [
+                'pagination' => $this->reservationService->getPaginatedList(
+                    $page,
+                    $user,
+                    $this->isGranted('ROLE_ADMIN')
+                ),
+            ]
+        );
     }
 
     /**
