@@ -26,6 +26,16 @@ class Tag
     private ?int $id = null;
 
     /**
+     * Getter for id.
+     *
+     * @return int|null Id
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
      * Created at.
      */
     #[ORM\Column]

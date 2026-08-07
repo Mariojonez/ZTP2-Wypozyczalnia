@@ -9,6 +9,7 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Entity\Task;
 use App\Repository\TaskRepository;
+use App\Entity\Tag;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -106,6 +107,23 @@ class TaskService implements TaskServiceInterface
     {
         return $this->paginator->paginate(
             $this->taskRepository->queryByCategory($category),
+            $page,
+            self::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
+
+    /**
+     * Get paginated list by tag.
+     *
+     * @param int $page Page number
+     * @param Tag $tag  Tag entity
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function getPaginatedListByTag(int $page, Tag $tag): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->taskRepository->queryByTag($tag),
             $page,
             self::PAGINATOR_ITEMS_PER_PAGE
         );

@@ -8,6 +8,8 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Entity\User;
+use App\Entity\Tag;
+use App\Entity\Category;
 use App\Form\Type\TaskType;
 use App\Service\TaskService;
 use App\Service\TaskServiceInterface;
@@ -193,6 +195,52 @@ class TaskController extends AbstractController
             [
                 'form' => $form->createView(),
                 'task' => $task,
+            ]
+        );
+    }
+
+    /**
+     * List books by tag.
+     *
+     * @param Tag $tag  Tag entity
+     * @param int $page Page number
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/tag/{id}', name: 'book_by_tag')]
+    public function byTag(Tag $tag, #[MapQueryParameter] int $page = 1): Response
+    {
+        return $this->render(
+            'task/index.html.twig',
+            [
+                'pagination' => $this->taskService->getPaginatedListByTag(
+                    $page,
+                    $tag
+                ),
+            ]
+        );
+    }
+
+    /**
+     * List books by category.
+     *
+     * @param Category $category Category entity
+     * @param int      $page     Page number
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/category/{id}', name: 'book_by_category')]
+    public function byCategory(Category $category, #[MapQueryParameter] int $page = 1): Response
+    {
+        $pagination = $this->taskService->getPaginatedListByCategory(
+            $page,
+            $category
+        );
+
+        return $this->render(
+            'task/index.html.twig',
+            [
+                'pagination' => $pagination,
             ]
         );
     }

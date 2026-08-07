@@ -8,6 +8,7 @@ namespace App\Service;
 
 use App\Entity\Category;
 use App\Entity\Task;
+use App\Entity\Tag;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -56,4 +57,14 @@ interface TaskServiceInterface
      * @return PaginationInterface<string, mixed> Paginated list
      */
     public function getPaginatedListByCategory(int $page, Category $category): PaginationInterface;
+
+    /**
+     * Get paginated list by tag.
+     *
+     * @param int $page Page number
+     * @param Tag $tag  Tag entity
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function getPaginatedListByTag(int $page, Tag $tag): PaginationInterface;
 }

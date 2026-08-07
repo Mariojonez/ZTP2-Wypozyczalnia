@@ -9,6 +9,7 @@ namespace App\Repository;
 use App\Entity\Category;
 use App\Entity\Task;
 use App\Entity\User;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -127,6 +128,25 @@ class TaskRepository extends ServiceEntityRepository
         $queryBuilder
             ->andWhere('task.category = :category')
             ->setParameter('category', $category);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Query tasks by tag.
+     *
+     * @param Tag $tag Tag entity
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryByTag(Tag $tag): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder
+            ->join('task.tags', 'tag')
+            ->andWhere('tag = :tag')
+            ->setParameter('tag', $tag);
 
         return $queryBuilder;
     }
