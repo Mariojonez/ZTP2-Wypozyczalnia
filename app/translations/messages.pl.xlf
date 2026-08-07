@@ -372,6 +372,11 @@
                 <target>Czy na pewno chcesz usunąć tego użytkownika?</target>
             </trans-unit>
 
+            <trans-unit id="label.repeat_password">
+                <source>label.repeat_password</source>
+                <target>Powtórz hasło</target>
+            </trans-unit>
+
             <trans-unit id="action.book_list">
                 <source>action.book_list</source>
                 <target>Lista książek</target>

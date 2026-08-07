@@ -29,8 +29,9 @@ class ReservationController extends AbstractController
     /**
      * Constructor.
      *
-     * @param TranslatorInterface   $translator            Translator
-     * @param ReservationRepository $reservationRepository Reservation repository
+     * @param TranslatorInterface         $translator            Translator
+     * @param ReservationRepository       $reservationRepository Reservation repository
+     * @param ReservationServiceInterface $reservationService    Reservation service
      */
     public function __construct(private readonly TranslatorInterface $translator, private readonly ReservationRepository $reservationRepository, private readonly ReservationServiceInterface $reservationService)
     {
@@ -79,9 +80,16 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    /**
+     * Lists reservations.
+     *
+     * @param int $page Page number
+     *
+     * @return Response HTTP response
+     */
     #[Route('/reservations', name: 'reservation_list')]
-    public function list(
-        #[MapQueryParameter] int $page = 1): Response {
+    public function list(#[MapQueryParameter] int $page = 1): Response
+    {
         /** @var UserInterface|null $user */
         $user = $this->getUser();
 
