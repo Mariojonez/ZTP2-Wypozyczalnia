@@ -48,9 +48,11 @@ class TaskRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder()
             ->select(
                 'partial task.{id, createdAt, updatedAt, title}',
-                'partial category.{id, title}'
+                'partial category.{id, title}',
+                'tag'
             )
             ->join('task.category', 'category')
+            ->leftJoin('task.tags', 'tag')
             ->orderBy('task.updatedAt', 'DESC');
     }
 
